@@ -1,0 +1,50 @@
+{% extends 'attendance1/includes/BaseDesign.html' %}
+{% block content %}
+<div class="login-box">
+  <div class="login-logo">
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in</p>
+      <div>
+        <input type="email" class="form-control" id="inp_user_email" placeholder="Username">
+      </div>
+      <div style="margin-top:20px">
+        <input type="password" class="form-control" id="inp_user_password" placeholder="Password">
+      </div>
+      <div style="margin-top:20px">
+        <button type="submit" id="login" class="btn btn-primary btn-block btn-flat">LogIn</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("#login").click(function(){
+    $.ajax({
+    url: "{% url 'attendance1:loginform' %}",
+        type:"POST",
+        data: {
+        email: $("#inp_user_email").val(),
+        password: $("#inp_user_password").val(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        },
+        dataType: 'json',
+        success: function(login_obj){
+             alert('posted');
+             alert(login_obj);
+             if (login_obj == 'EXISTS') {
+              location.href = "{% url 'attendance1:employee_master' %}"
+              }
+              else{
+              alert('Invalid Email or Password')
+              }
+
+            },
+        error:function(data){
+            alert(data.error);
+            }
+    });
+  });
+});
+</script>
+{% endblock %}

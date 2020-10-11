@@ -1,0 +1,78 @@
+{% extends 'attendance1/includes/BaseDesign.html' %}
+{% block content %}
+{% include 'attendance1/includes/header.html' %}
+{% include 'attendance1/includes/menu.html' %}
+<div class="wrapper">
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Attendance Form
+            </h1>
+        </section>
+        <div class="box box-info">
+            <table class="table table-striped table-hover" id="table101">
+                <thead>
+                <tr>
+                    <th style="display:none"> Employee code</th>
+                    <th>Employee Name</th>
+                    <th>Attendance Value/Overtime</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in list_employees %}
+                <tr>
+                    <td style="display:none">{{i.emp_id}}</td>
+                    <td>{{i.emp_name}}</td>
+                    <td>
+                        <select id="inp_value" class="form-control inp_value">
+                            <option value="0" selected>0</option>
+                            <option value="1">1</option>
+                            <option value="1.5">1.5</option>
+                            <option value="2">2</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+$('#submit').click(function(){
+    var emp_ids = [];
+    var attendance = [];
+    $('tr').find('td:eq(0)').each(function(i,j){
+        emp_ids.push(j.textContent);
+    });
+    $('.inp_value > option:selected').each(function(i,j){
+        attendance.push(j.textContent);
+    });
+    <!--console.log(emp_ids)-->
+    <!--console.log(attendance)-->
+    $.ajax({
+            url: "{% url 'attendance1:add_attendance' %}",
+            type: "POST",
+            data:{
+            emp_ids: JSON.stringify(emp_ids),
+            attendance: JSON.stringify(attendance),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            dataType: 'json',
+            success: function(attendance){
+            alert("attendance updated");
+            },
+            error: function(data){
+            alert(data.error);
+            }
+            });
+   });
+
+});
+</script>
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+{% endblock %}
