@@ -15,4 +15,4 @@ views.py consists of your python code logics which decides what to show on front
 Models.py is used to directly work with the database
 urls.py contains all urls which are used with your project level url. for example, if your project url is djangoproject.com/Attendance and your app level sub url is /login. Then the url to access your login page should be - djangoproject.com/Attendance/login
 
-#####################################################################################################################################
+####################################################################################################################################
