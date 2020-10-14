@@ -6,7 +6,7 @@ The project consists of everything from frontend to backend.
 
 While developing this project, we used Jquery as primary javascript library for frontend validations and for integration of backend logics to frontend
 
-Paths very much of use for your reference must be---- https://github.com/Rishabh31179/Attendance/tree/master/atenv/Attendance/attendance1
+Path very much of use for your reference must be---- https://github.com/Rishabh31179/Attendance/tree/master/atenv/Attendance/attendance1
 The above path consists of static files( files that are used without any changes to it are saved inside static files ). Later these static files are included in your html pages wherever it is useful. Images, css files, js files are present in static folder
 
 templates/attendance1 is the folder for your html pages
